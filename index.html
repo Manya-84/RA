@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RA - Tracking de Imagen</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="app">
+    <header class="hud">
+      <div class="hud__title">Demo RA · Tracking de Imagen</div>
+      <div class="hud__hint">Permite cámara. Apunta al marcador para ver el modelo 3D.</div>
+    </header>
+
+    <div id="ar-container" class="ar-container"></div>
+
+    <section class="instructions">
+      <h2>Cómo usar</h2>
+      <ol>
+        <li>Abre esta página desde <strong>HTTPS</strong> y permite el acceso a la cámara.</li>
+        <li>Imprime o muestra en otra pantalla la imagen marcador (target) que viene por defecto: <a href="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.png" target="_blank" rel="noreferrer">card.png</a>.</li>
+        <li>Apunta con la cámara al marcador. El modelo 3D aparecerá anclado y seguirá el movimiento.</li>
+      </ol>
+    </section>
+  </main>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
