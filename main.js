@@ -80,6 +80,12 @@ async function setupAR() {
 
     await mindarThree.start();
 
+    // Forzar tamaño del renderer al tamaño del contenedor
+    const rect = container.getBoundingClientRect();
+    renderer.setSize(rect.width, rect.height);
+    renderer.domElement.style.width = '100%';
+    renderer.domElement.style.height = '100%';
+
     if (hint) hint.textContent = "Apunta al marcador";
     if (startBtn) startBtn.style.display = "none";
 
