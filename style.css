@@ -72,7 +72,17 @@ main.app {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-#ar-container video,
+#ar-container video {
+  display: block !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  z-index: 0 !important;
+}
+
 #ar-container canvas,
 #ar-container canvas[data-engine] {
   display: block !important;
@@ -81,8 +91,8 @@ main.app {
   left: 0 !important;
   width: 100% !important;
   height: 100% !important;
-  object-fit: cover !important;
   z-index: 1 !important;
+  background: transparent !important;
 }
 
 .instructions {

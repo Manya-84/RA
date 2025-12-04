@@ -53,6 +53,10 @@ async function setupAR() {
   });
 
   const { renderer, scene, camera } = mindarThree;
+  
+  // Fondo transparente para que se vea el video detrás
+  renderer.setClearColor(0x000000, 0);
+  
   if (renderer.outputColorSpace !== undefined) {
     renderer.outputColorSpace = THREE.SRGBColorSpace;
   }
