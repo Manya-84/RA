@@ -36,6 +36,10 @@ async function setupAR() {
   });
 
   const { renderer, scene, camera } = mindarThree;
+  if (renderer.outputColorSpace !== undefined) {
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+  }
+  renderer.setPixelRatio(window.devicePixelRatio);
 
   // Luces
   const hemiLight = new THREE.HemisphereLight(0xffffff, 0x222222, 1.1);
