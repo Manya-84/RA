@@ -26,6 +26,8 @@ async function loadModel(anchor) {
 
 async function setupAR() {
   const container = document.querySelector("#ar-container");
+  const hint = document.querySelector(".hud__hint");
+  const startBtn = document.querySelector("#start-btn");
 
   const mindarThree = new MindARThree({
     container,
@@ -50,7 +52,17 @@ async function setupAR() {
   const clock = new THREE.Clock();
 
   const start = async () => {
+    if (startBtn) {
+      startBtn.disabled = true;
+      startBtn.textContent = "Iniciando...";
+    }
+    if (hint) hint.textContent = "Solicitando cámara...";
+
     await mindarThree.start();
+
+    if (hint) hint.textContent = "Apunta al marcador";
+    if (startBtn) startBtn.style.display = "none";
+
     renderer.setAnimationLoop(() => {
       const delta = clock.getDelta();
       anchor.group.rotation.z += delta * 0.5; // ligera animación
@@ -66,14 +78,36 @@ async function setupAR() {
     container.classList.remove("found");
   };
 
-  start();
+  return { start };
 }
 
-setupAR().catch((err) => {
-  console.error("Fallo inicializando AR", err);
+async function init() {
   const hint = document.querySelector(".hud__hint");
-  if (hint) {
-    hint.textContent = "Error: revisa permisos de cámara o abre sobre HTTPS.";
-    hint.style.color = "#ff9c9c";
+  const startBtn = document.querySelector("#start-btn");
+
+  try {
+    const { start } = await setupAR();
+    if (startBtn) {
+      startBtn.onclick = () => {
+        start().catch((err) => {
+          console.error("Fallo al iniciar AR", err);
+          if (hint) {
+            hint.textContent = "Error: revisa permisos de cámara o HTTPS";
+            hint.style.color = "#ff9c9c";
+          }
+          startBtn.disabled = false;
+          startBtn.textContent = "Iniciar AR";
+        });
+      };
+    }
+  } catch (err) {
+    console.error("Fallo preparando AR", err);
+    if (hint) {
+      hint.textContent = "Error: revisa permisos de cámara o HTTPS";
+      hint.style.color = "#ff9c9c";
+    }
+    if (startBtn) startBtn.disabled = true;
   }
-});
+}
+
+init();

@@ -27,6 +27,30 @@ main.app {
   z-index: 10;
 }
 
+.btn {
+  appearance: none;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(90deg, #1f6feb, #8b5cf6);
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+  width: fit-content;
+  box-shadow: 0 10px 30px rgba(31, 111, 235, 0.25);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, opacity 0.2s;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
 .hud__title {
   font-size: 16px;
   font-weight: 700;
