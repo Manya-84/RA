@@ -33,7 +33,7 @@ async function setupAR() {
     container,
     imageTargetSrc: targetUrl,
     uiScanning: true,
-    uiLoading: "Cargando cámara...",
+    uiLoading: true, // usar loading UI por defecto (evita interpretar string como selector)
   });
 
   const { renderer, scene, camera } = mindarThree;
