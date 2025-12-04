@@ -2,6 +2,23 @@ import { MindARThree } from "mindar-image-three";
 import * as THREE from "three";
 import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/loaders/GLTFLoader.js";
 
+// Compat: map deprecated outputEncoding to outputColorSpace to silence warnings in MindAR builds
+if (THREE.WebGLRenderer && !THREE.WebGLRenderer.__outputEncodingPatched) {
+  Object.defineProperty(THREE.WebGLRenderer.prototype, "outputEncoding", {
+    configurable: true,
+    get() {
+      return this.outputColorSpace === THREE.SRGBColorSpace ? THREE.sRGBEncoding : undefined;
+    },
+    set(val) {
+      // MindAR usa sRGBEncoding; lo redirigimos a outputColorSpace para evitar el warning
+      if (val === THREE.sRGBEncoding || val === THREE.SRGBColorSpace) {
+        this.outputColorSpace = THREE.SRGBColorSpace;
+      }
+    },
+  });
+  THREE.WebGLRenderer.__outputEncodingPatched = true;
+}
+
 const targetUrl = "https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind";
 const modelUrl = "https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models@master/2.0/Duck/glTF/Duck.gltf";
 
